@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>IPL 2026 Schedule</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#0b1c3d;
+color:white;
+text-align:center;
+}
+
+h1{
+color:#ffd700;
+margin-top:20px;
+}
+
+.container{
+max-width:900px;
+margin:auto;
+}
+
+.match{
+background:#132b5e;
+padding:15px;
+margin:10px;
+border-radius:10px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+}
+
+.team{
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.team img{
+width:40px;
+height:40px;
+}
+
+.details{
+font-size:14px;
+color:#ddd;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>IPL 2026 Schedule</h1>
+
+<div class="container" id="schedule"></div>
+
+<script>
+
+const matches = [
+
+{m:1,date:"28 Mar",t1:"Chennai Super Kings",t2:"Mumbai Indians",venue:"Chennai",time:"7:30 PM"},
+{m:2,date:"29 Mar",t1:"Royal Challengers Bengaluru",t2:"Kolkata Knight Riders",venue:"Bengaluru",time:"3:30 PM"},
+{m:3,date:"29 Mar",t1:"Delhi Capitals",t2:"Rajasthan Royals",venue:"Delhi",time:"7:30 PM"},
+{m:4,date:"30 Mar",t1:"Sunrisers Hyderabad",t2:"Punjab Kings",venue:"Hyderabad",time:"7:30 PM"},
+{m:5,date:"31 Mar",t1:"Mumbai Indians",t2:"Royal Challengers Bengaluru",venue:"Mumbai",time:"7:30 PM"},
+{m:6,date:"1 Apr",t1:"Chennai Super Kings",t2:"Delhi Capitals",venue:"Chennai",time:"7:30 PM"},
+{m:7,date:"2 Apr",t1:"Kolkata Knight Riders",t2:"Rajasthan Royals",venue:"Kolkata",time:"7:30 PM"},
+{m:8,date:"3 Apr",t1:"Sunrisers Hyderabad",t2:"Mumbai Indians",venue:"Hyderabad",time:"7:30 PM"},
+{m:9,date:"4 Apr",t1:"Punjab Kings",t2:"Chennai Super Kings",venue:"Mohali",time:"3:30 PM"},
+{m:10,date:"4 Apr",t1:"Rajasthan Royals",t2:"Royal Challengers Bengaluru",venue:"Jaipur",time:"7:30 PM"},
+{m:11,date:"5 Apr",t1:"Delhi Capitals",t2:"Kolkata Knight Riders",venue:"Delhi",time:"7:30 PM"},
+{m:12,date:"6 Apr",t1:"Mumbai Indians",t2:"Punjab Kings",venue:"Mumbai",time:"7:30 PM"},
+{m:13,date:"7 Apr",t1:"Chennai Super Kings",t2:"Sunrisers Hyderabad",venue:"Chennai",time:"7:30 PM"},
+{m:14,date:"8 Apr",t1:"Royal Challengers Bengaluru",t2:"Delhi Capitals",venue:"Bengaluru",time:"7:30 PM"},
+{m:15,date:"9 Apr",t1:"Rajasthan Royals",t2:"Mumbai Indians",venue:"Jaipur",time:"7:30 PM"},
+{m:16,date:"10 Apr",t1:"Kolkata Knight Riders",t2:"Punjab Kings",venue:"Kolkata",time:"7:30 PM"},
+{m:17,date:"11 Apr",t1:"Chennai Super Kings",t2:"Royal Challengers Bengaluru",venue:"Chennai",time:"3:30 PM"},
+{m:18,date:"11 Apr",t1:"Sunrisers Hyderabad",t2:"Rajasthan Royals",venue:"Hyderabad",time:"7:30 PM"},
+{m:19,date:"12 Apr",t1:"Mumbai Indians",t2:"Delhi Capitals",venue:"Mumbai",time:"7:30 PM"},
+{m:20,date:"13 Apr",t1:"Punjab Kings",t2:"Royal Challengers Bengaluru",venue:"Mohali",time:"7:30 PM"},
+{m:21,date:"14 Apr",t1:"Kolkata Knight Riders",t2:"Chennai Super Kings",venue:"Kolkata",time:"7:30 PM"},
+{m:22,date:"15 Apr",t1:"Rajasthan Royals",t2:"Delhi Capitals",venue:"Jaipur",time:"7:30 PM"},
+{m:23,date:"16 Apr",t1:"Sunrisers Hyderabad",t2:"Mumbai Indians",venue:"Hyderabad",time:"7:30 PM"},
+{m:24,date:"17 Apr",t1:"Punjab Kings",t2:"Kolkata Knight Riders",venue:"Mohali",time:"7:30 PM"},
+{m:25,date:"18 Apr",t1:"Chennai Super Kings",t2:"Rajasthan Royals",venue:"Chennai",time:"3:30 PM"},
+{m:26,date:"18 Apr",t1:"Royal Challengers Bengaluru",t2:"Sunrisers Hyderabad",venue:"Bengaluru",time:"7:30 PM"},
+{m:27,date:"19 Apr",t1:"Delhi Capitals",t2:"Punjab Kings",venue:"Delhi",time:"7:30 PM"},
+{m:28,date:"20 Apr",t1:"Mumbai Indians",t2:"Kolkata Knight Riders",venue:"Mumbai",time:"7:30 PM"},
+{m:29,date:"21 Apr",t1:"Rajasthan Royals",t2:"Sunrisers Hyderabad",venue:"Jaipur",time:"7:30 PM"},
+{m:30,date:"22 Apr",t1:"Chennai Super Kings",t2:"Punjab Kings",venue:"Chennai",time:"7:30 PM"},
+{m:31,date:"23 Apr",t1:"Royal Challengers Bengaluru",t2:"Mumbai Indians",venue:"Bengaluru",time:"7:30 PM"},
+{m:32,date:"24 Apr",t1:"Delhi Capitals",t2:"Chennai Super Kings",venue:"Delhi",time:"7:30 PM"},
+{m:33,date:"25 Apr",t1:"Kolkata Knight Riders",t2:"Sunrisers Hyderabad",venue:"Kolkata",time:"3:30 PM"},
+{m:34,date:"25 Apr",t1:"Rajasthan Royals",t2:"Punjab Kings",venue:"Jaipur",time:"7:30 PM"},
+{m:35,date:"26 Apr",t1:"Mumbai Indians",t2:"Rajasthan Royals",venue:"Mumbai",time:"7:30 PM"}
+
+];
+
+const logos={
+"Chennai Super Kings":"https://upload.wikimedia.org/wikipedia/en/2/2e/Chennai_Super_Kings_Logo.svg",
+"Mumbai Indians":"https://upload.wikimedia.org/wikipedia/en/c/cd/Mumbai_Indians_Logo.svg",
+"Royal Challengers Bengaluru":"https://upload.wikimedia.org/wikipedia/en/4/47/Royal_Challengers_Bangalore_Logo.svg",
+"Kolkata Knight Riders":"https://upload.wikimedia.org/wikipedia/en/4/4c/Kolkata_Knight_Riders_Logo.svg",
+"Delhi Capitals":"https://upload.wikimedia.org/wikipedia/en/2/2f/Delhi_Capitals.svg",
+"Rajasthan Royals":"https://upload.wikimedia.org/wikipedia/en/6/60/Rajasthan_Royals_Logo.svg",
+"Sunrisers Hyderabad":"https://upload.wikimedia.org/wikipedia/en/8/81/Sunrisers_Hyderabad.svg",
+"Punjab Kings":"https://upload.wikimedia.org/wikipedia/en/d/d4/Punjab_Kings_Logo.svg"
+}
+
+const container=document.getElementById("schedule");
+
+matches.forEach(match=>{
+
+container.innerHTML+=`
+
+<div class="match">
+
+<div class="team">
+<img src="${logos[match.t1]}">
+${match.t1}
+</div>
+
+<div>
+Match ${match.m}<br>
+${match.date}
+</div>
+
+<div class="team">
+<img src="${logos[match.t2]}">
+${match.t2}
+</div>
+
+<div class="details">
+${match.venue}<br>
+${match.time}
+</div>
+
+</div>
+
+`;
+
+});
+
+</script>
+
+</body>
+</html>
